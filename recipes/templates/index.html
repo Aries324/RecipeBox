@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Recipe Box</title>
+  </head>
+  <body>
+    <h1>Recipe Box</h1>
+
+    <h2>Recipes</h2>
+    <ul>
+      {% for item in data %}
+      <li>
+        {% if item.title == 'Perfect Steak'%}
+        <a href="{% url 'recipe' %}">{{ item.title }}</a>
+        {% else %}
+        <a href="{% url 'recipe2' %}">{{ item.title }}</a>
+        {% endif %} | by {% if item.author.name == 'Gordon Ramsay'%}
+        <a href="{% url 'profile' %}">{{ item.author.name }}</a>
+        {% else %}
+        <a href="{% url 'profile2' %}">{{ item.author.name }}</a>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
