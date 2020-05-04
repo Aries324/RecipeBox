@@ -15,12 +15,12 @@ def recipe(request):
 
 
 def profile(request):
-    data = Author.objects.all()
+    data = Recipe.objects.all()
     return render(request, 'profile.html', {'data': data})
 
 
 def profile2(request):
-    data = Author.objects.all()
+    data = Recipe.objects.all()
     return render(request, 'profile2.html', {'data': data})
 
 
