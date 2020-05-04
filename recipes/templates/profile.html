@@ -3,10 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ data.1.name }}</title>
+    <title>{{ data.1.author.name }}</title>
   </head>
   <body>
-    <h1>{{ data.1.name }}</h1>
-    <p>{{ data.1.bio }}</p>
+    <a href="{% url 'home' %}">home</a>
+    <h1>{{ data.1.author.name }}</h1>
+
+    <h2>Recipes made:</h2>
+    <ul>
+      <li><a href="{% url 'recipe' %}">{{ data.1.title }}</a></li>
+    </ul>
   </body>
 </html>
