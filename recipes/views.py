@@ -9,21 +9,12 @@ def index(request):
     return render(request, 'index.html', {'data': data})
 
 
-def recipe(request):
-    data = Recipe.objects.all()
+def recipe(request, id):
+    data = Recipe.objects.get(id=id)
     return render(request, 'recipe.html', {'data': data})
 
 
-def profile(request):
-    data = Recipe.objects.all()
-    return render(request, 'profile.html', {'data': data})
-
-
-def profile2(request):
-    data = Recipe.objects.all()
-    return render(request, 'profile2.html', {'data': data})
-
-
-def recipe2(request):
-    data = Recipe.objects.all()
-    return render(request, 'recipe2.html', {'data': data})
+def profile(request, id):
+    author = Author.objects.get(id=id)
+    recipe = Recipe.objects.filter(author=author)
+    return render(request, 'profile.html', {'author': author, 'recipe': recipe})
