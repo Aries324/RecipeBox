@@ -8,7 +8,7 @@
   <body>
     <a href="{% url 'home' %}">home</a>
     <h1>{{ author.name }}</h1>
-
+    <p>{{ author.bio }}</p>
     <h2>Recipes made:</h2>
     <ul>
       {% for item in recipe %}
