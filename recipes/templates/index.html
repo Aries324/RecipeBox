@@ -10,15 +10,8 @@
     <ul>
       {% for item in data %}
       <li>
-        {% if item.title == 'Perfect Steak'%}
-        <a href="{% url 'recipe' %}">{{ item.title }}</a>
-        {% else %}
-        <a href="{% url 'recipe2' %}">{{ item.title }}</a>
-        {% endif %} | by {% if item.author.name == 'Gordon Ramsay'%}
-        <a href="{% url 'profile' %}">{{ item.author.name }}</a>
-        {% else %}
-        <a href="{% url 'profile2' %}">{{ item.author.name }}</a>
-        {% endif %}
+        <a href="/recipe/{{ item.id }}">{{ item.title }}</a> | by
+        <a href="/profile/{{ item.author.id}}">{{ item.author.name }}</a>
       </li>
       {% endfor %}
     </ul>
