@@ -15,5 +15,6 @@ def recipe(request, id):
 
 
 def profile(request, id):
-    data = Author.objects.get(id=id)
-    return render(request, 'profile.html', {'data': data})
+    author = Author.objects.get(id=id)
+    recipe = Recipe.objects.filter(author=author)
+    return render(request, 'profile.html', {'author': author, 'recipe': recipe})
