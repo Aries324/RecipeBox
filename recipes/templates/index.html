@@ -4,11 +4,15 @@
     <title>Recipe Box</title>
   </head>
   <body>
+    Log in status: {{ request.user.is_authenticated }}
     <h1>Recipe Box</h1>
 
+    <button><a href="/login/">Login</a></button>
+    <button><a href="/logout/">Logout</a></button>
+
     <h2>Recipes</h2>
-    <button><a href="addrecipe/">Add a Recipe</a></button>
-    <button><a href="addauthor/">Add an Author</a></button>
+    <button><a href="/addrecipe/">Add a Recipe</a></button>
+    <button><a href="/addauthor/">Add an Author</a></button>
     <ul>
       {% for item in data %}
       <li>
