@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' "/Users/chris/Desktop/Kenzie Academy/PythonQ4/RecipeBox/.venv/bin/python" "$0" "$@"
-' '''
+#!/Users/tiffanymclean/Kenzie_Academy/Python/scratch/RecipeBox/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

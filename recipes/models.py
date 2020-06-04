@@ -19,6 +19,7 @@ class Recipe (models.Model):
     description = models.TextField()
     time = models.CharField(max_length=50)
     instructions = models.TextField()
+    favorite = models.ManyToManyField("self", symmetrical=False)
 
     def __str__(self):
         return self.title

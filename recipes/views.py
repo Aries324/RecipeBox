@@ -1,8 +1,9 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from recipes.models import Recipe, Author
-from recipes.forms import AddRecipeForm, AddAuthorForm, LoginForm
+from recipes.forms import AddRecipeForm, AddAuthorForm, LoginForm, EditRecipeForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 
 
@@ -22,7 +23,8 @@ def loginview(request):
 
 def logoutview(request):
     logout(request)
-    return HttpResponseRedirect(reverse('home'))
+    # return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(request.GET.get('next', reverse('home')))
 
 
 def index(request):
@@ -50,8 +52,34 @@ def add_recipe(request):
 
     return render(request, 'addrecipe.html', {"form": form})
 
+@login_required()
+def recipe_edit(request, id):
+    recipe = Recipe.objects.get(id=id)
 
-@login_required
+    if request.method == 'POST':
+        form = EditRecipeForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            recipe.title = data['title']
+            recipe.description = data['description']
+            recipe.author = data['author']
+            recipe.instructions = data['instructions']
+            recipe.time = data['time']
+            recipe.favorite = data['favorite']
+            recipe.save()
+            return HttpResponseRedirect(reverse('recipe_detail', args=(id,)))
+
+    form = EditRecipeForm(initial={
+        'title': recipe.title,
+        'description': recipe.description,
+        'instructions': recipe.instructions,
+        'time': recipe.time
+
+
+    })
+    return render(request, 'editrecipe.html', {'form': form})
+
+@staff_member_required()
 def add_author(request):
     if request.user.is_staff:
         if request.method == "POST":
@@ -83,3 +111,24 @@ def profile(request, id):
     author = Author.objects.get(id=id)
     recipe = Recipe.objects.filter(author=author)
     return render(request, 'profile.html', {'author': author, 'recipe': recipe})
+
+
+@login_required()
+def favorite_view(request, id):
+    current_user =request.user
+    favorite_recipe = Recipe.objects.get(id=id)
+    current_user.recipe.favorite.add(favorite_recipe)
+    current_user.save()
+    return HttpResponseRedirect(reverse('home'))
+
+@login_required()
+def remove_favorite(request, id):
+    current_user = request.user
+    favorite_recipe = Recipe.objects.get(id=id)
+    current_user.favorite.remove(favorite_recipe)
+    current_user.save()
+    return HttpResponseRedirect(reverse('home'))
+
+
+
+

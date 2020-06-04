@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/chris/Desktop/Kenzie Academy/PythonQ4/RecipeBox/.venv"
+VIRTUAL_ENV="/Users/tiffanymclean/Kenzie_Academy/Python/scratch/RecipeBox/.venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
